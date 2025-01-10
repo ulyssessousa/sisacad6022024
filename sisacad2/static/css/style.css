@@ -1,0 +1,12 @@
+body{
+    background-color: beige;
+}
+
+.container{
+    min-height: 600px;
+}
+
+.rodape{
+    text-align: center;
+}
+
