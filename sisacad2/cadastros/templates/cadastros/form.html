@@ -1,0 +1,25 @@
+{% extends 'paginas/base.html' %}
+
+{% load static %}
+
+
+{% block titulo %}
+Cadastro
+{% endblock %}
+
+{% block conteudo %}
+<h2>Cadastro</h2>
+
+<p class="lead">
+    Preencha todos os campos obrigatórios.
+</p>
+<hr>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">
+        Cadastrar
+    </button>
+</form>
+
+{% endblock %}
