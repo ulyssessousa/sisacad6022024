@@ -1,0 +1,37 @@
+{% extends 'paginas/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Listar Departamentos
+{% endblock %}
+
+{% block conteudo %}
+<h2>Departamentos cadastrados</h2>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Departamento</th>
+            <th>Sigla</th>
+            <th>Opções</th>
+        </tr>
+        {% for departamento in object_list %}
+        <tr>
+            <td>{{ departamento.nome }}</td>
+            <td>{{ departamento.sigla }}</td>
+            <td>
+                <a href="{% url 'editar-departamento' departamento.pk %}" 
+                class="btn btn-warning btn-sm" title="Editar">
+                    Editar
+                </a>
+                <a href="{% url 'excluir-departamento' departamento.pk %}"
+                class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

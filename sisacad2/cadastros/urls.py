@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DepartamentoCreate, DisciplinaCreate, DepartamentoUpdate, DisciplinaUpdate, DepartamentoDelete, DisciplinaDelete
+from .views import DepartamentoCreate, DisciplinaCreate, DepartamentoUpdate, DisciplinaUpdate, DepartamentoDelete, DisciplinaDelete, DepartamentoList, DisciplinaList
 
 urlpatterns = [
      path('cadastros/departamento/', 
@@ -18,11 +18,16 @@ urlpatterns = [
           DisciplinaUpdate.as_view(),
           name='editar-disciplina'),
 
-     path('excluir/departamento/<int:pk>',
+     path('excluir/departamento/<int:pk>/',
           DepartamentoDelete.as_view(),
           name='excluir-departamento'),
      
-     path('excluir/disciplina/<int:pk>',
+     path('excluir/disciplina/<int:pk>/',
           DisciplinaDelete.as_view(),
           name='excluir-disciplina'),
+     
+     path('listar/departamento/',
+          DepartamentoList.as_view(),
+          name='listar-departamento'),
+     
 ]
