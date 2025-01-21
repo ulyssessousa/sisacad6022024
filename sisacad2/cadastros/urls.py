@@ -30,4 +30,8 @@ urlpatterns = [
           DepartamentoList.as_view(),
           name='listar-departamento'),
      
+     path('listar/disciplina/',
+          DisciplinaList.as_view(),
+          name='listar-disciplina'),
+     
 ]
