@@ -6,7 +6,12 @@ Listar Disciplinas
 {% endblock %}
 
 {% block conteudo %}
-<h2>Disciplinas cadastradas</h2>
+<h2>Disciplinas cadastradas
+    <a href="{% url 'cadastrar-disciplina' %}"
+    class="btn btn-primary btn-sm float-end">
+        Adicionar disciplina
+    </a>
+</h2>
 
 <hr>
 <div class="table-responsive">
