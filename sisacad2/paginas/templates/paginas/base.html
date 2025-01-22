@@ -26,6 +26,22 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
+                    <li class="nav-item dropdown" id="dropdownCadastro">
+                        <a class="nav-link dropdown-toggle" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                            Cadastro
+                        </a>
+                        <ul class="dropdown-menu" id="itensCadastro">
+                            <li>
+                                <a href="{% url 'listar-departamento' %}" class="dropdown-item">
+                                    Departamentos</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'listar-disciplina' %}" class="dropdown-item">
+                                    Disciplinas</a>           
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

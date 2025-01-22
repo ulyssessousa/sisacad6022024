@@ -4,6 +4,7 @@ body{
 
 .container{
     min-height: 550px;
+    padding-top: 10px;
 }
 
 .rodape{

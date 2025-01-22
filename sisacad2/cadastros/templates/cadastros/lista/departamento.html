@@ -6,7 +6,12 @@ Listar Departamentos
 {% endblock %}
 
 {% block conteudo %}
-<h2>Departamentos cadastrados</h2>
+<h2>Departamentos cadastrados
+    <a href="{% url 'cadastrar-departamento' %}"
+    class="btn btn-primary btn-sm float-end">
+        Adicionar departamento
+    </a>
+</h2>
 
 <hr>
 <div class="table-responsive">
