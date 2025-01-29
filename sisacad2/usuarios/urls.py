@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from .views import EncerrarSessaoView
 
 urlpatterns = [
     path('login/', 
@@ -7,6 +8,10 @@ urlpatterns = [
              template_name = 'usuarios/login.html'
              ),
          name='login'
+        ),
+    path('logout/',
+         EncerrarSessaoView.user_logout,
+         name='logout'
         ),
 
 ]

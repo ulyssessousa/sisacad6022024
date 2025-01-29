@@ -6,7 +6,9 @@ Sistema Acadêmico - Página Inicial
 {% endblock %}
 
 {% block conteudo %}
-<h1>Bem-vindo ao Sistema Acadêmico!</h1>
+<h1>Seja bem-vindo(a){% if request.user.is_authenticated %}, {{ user }}, 
+    {% endif %}
+     ao Sistema Acadêmico!</h1>
 <p>Este é o conteúdo principal da página.</p>
 {% endblock %}
 
