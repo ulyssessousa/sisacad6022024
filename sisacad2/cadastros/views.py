@@ -2,14 +2,16 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Departamento, Disciplina
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-class DepartamentoCreate(CreateView):
+class DepartamentoCreate(LoginRequiredMixin, CreateView):
     model = Departamento
     fields = ['nome', 'sigla']
     template_name = "cadastros/form.html"
     success_url = reverse_lazy('listar-departamento')
+    login_url = reverse_lazy('login')
 
 class DisciplinaCreate(CreateView):
     model = Disciplina
