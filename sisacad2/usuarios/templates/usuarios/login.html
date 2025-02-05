@@ -11,6 +11,19 @@ Login
 {% block conteudo %}
 
 <div class="row">
+        {% if request.user.is_authenticated %}
+        <div class="col-md-5 mx-auto">
+            <h3>Ação não permitida</h3>
+            <hr>
+            <p class="lead">
+                <strong>
+                Houve algum problema para processar a ação desejada
+                ou você não tem permissão para isso.
+                </strong>
+            </p>
+        </div>
+            
+        {% else %}
         <div class="col-md-5 mx-auto">
             <h3>Autenticação</h3>
             <hr>
@@ -23,6 +36,7 @@ Login
                 </button>
             </form>
         </div>
+        {% endif %}
     </div>
     
 {% endblock %}
