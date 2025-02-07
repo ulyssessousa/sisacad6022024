@@ -15,6 +15,12 @@ class DepartamentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('listar-departamento')
     login_url = reverse_lazy('login')
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Cadastro de Novo Departamento"
+        context['botao'] = "Cadastrar"
+        return context
+
 class DisciplinaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     group_required = u"Administrador"
     model = Disciplina
@@ -22,6 +28,12 @@ class DisciplinaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = "cadastros/form.html"
     success_url = reverse_lazy('listar-disciplina')
     login_url = reverse_lazy('login')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Cadastro de Nova Disciplina"
+        context['botao'] = "Cadastrar"
+        return context
 
 class DepartamentoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     group_required = u"Administrador"
@@ -31,6 +43,12 @@ class DepartamentoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('listar-departamento')
     login_url = reverse_lazy('login')
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Editar dados de departamento"
+        context['botao'] = "Confirmar Atualizações"
+        return context
+
 
 class DisciplinaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     group_required = u"Administrador"
@@ -39,6 +57,12 @@ class DisciplinaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-disciplina')
     login_url = reverse_lazy('login')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Editar dados de disciplina"
+        context['botao'] = "Confirmar Atualizações"
+        return context
     
 class DepartamentoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     group_required = u"Administrador"

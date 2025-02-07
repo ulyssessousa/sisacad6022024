@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import EncerrarSessaoView
+from .views import EncerrarSessaoView, UsuarioCreate
 
 urlpatterns = [
     path('login/', 
@@ -13,5 +13,11 @@ urlpatterns = [
          EncerrarSessaoView.user_logout,
          name='logout'
         ),
+
+    path('registrar/',
+        UsuarioCreate.as_view(),
+        name='registrar'
+    ),
+
 
 ]

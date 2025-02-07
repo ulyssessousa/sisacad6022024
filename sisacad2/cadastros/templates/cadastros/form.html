@@ -4,11 +4,11 @@
 {% load crispy_forms_tags %}
 
 {% block titulo %}
-Cadastro
+{{ titulo }}
 {% endblock %}
 
 {% block conteudo %}
-<h2>Cadastro</h2>
+<h2>{{ titulo }}</h2>
 
 <p class="lead">
     Preencha todos os campos obrigatórios.
@@ -18,7 +18,7 @@ Cadastro
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="btn btn-primary">
-        Cadastrar
+        {{ botao }}
     </button>
 </form>
 
