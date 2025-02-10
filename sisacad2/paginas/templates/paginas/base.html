@@ -34,12 +34,20 @@
                         </a>
                         <ul class="dropdown-menu" id="itensCadastro">
                             <li>
+                                <a href="{% url 'listar-curso' %}" class="dropdown-item">
+                                    Cursos</a>           
+                            </li>
+                            <li>
                                 <a href="{% url 'listar-departamento' %}" class="dropdown-item">
                                     Departamentos</a>
                             </li>
                             <li>
                                 <a href="{% url 'listar-disciplina' %}" class="dropdown-item">
                                     Disciplinas</a>           
+                            </li>
+                            <li>
+                                <a href="{% url 'listar-modalidade' %}" class="dropdown-item">
+                                    Modalidades</a>           
                             </li>
                         </ul>
                     </li>

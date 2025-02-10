@@ -1,0 +1,60 @@
+{% extends 'paginas/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Listar Cursos
+{% endblock %}
+
+{% block conteudo %}
+<h2>Cursos cadastrados
+    <a href="{% url 'cadastrar-curso' %}"
+    class="btn btn-primary btn-sm float-end">
+        Adicionar curso
+    </a>
+</h2>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Curso</th>
+            <th>Carga Horária</th>
+            <th>Presencial</th>
+            <th>Departamento</th>
+            <th>Modalidade</th>
+            <th>Opções</th>
+        </tr>
+        {% for curso in object_list %}
+        <tr>
+            <td>{{ curso.nome }}</td>
+            <td>{{ curso.cargaHoraria }}</td>
+            <td>
+                {% if curso.presencial %}
+                Sim
+                {% else %}
+                Não
+                {% endif %}
+            </td>
+            <td>{{ curso.departamento.sigla }}</td>
+            <td>{{ curso.modalidade.nome }}</td>
+            <td>
+                <a href="{% url 'editar-curso' curso.pk %}" 
+                class="btn btn-warning btn-sm" title="Editar">
+                    Editar
+                </a>
+                <a href="{% url 'excluir-curso' curso.pk %}"
+                class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">
+                Nenhum campo registro.
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
