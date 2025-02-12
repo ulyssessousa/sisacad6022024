@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DepartamentoCreate, DisciplinaCreate, DepartamentoUpdate, DisciplinaUpdate, DepartamentoDelete, DisciplinaDelete, DepartamentoList, DisciplinaList
+from .views import *
 
 urlpatterns = [
      path('cadastros/departamento/', 
@@ -34,4 +34,35 @@ urlpatterns = [
           DisciplinaList.as_view(),
           name='listar-disciplina'),
      
+     path('cadastros/modalidade/',
+         ModalidadeCreate.as_view(),
+         name='cadastrar-modalidade'),
+     
+     path('editar/modalidade/<int:pk>/',
+          ModalidadeUpdate.as_view(),
+          name='editar-modalidade'),
+     
+     path('excluir/modalidade/<int:pk>/',
+          ModalidadeDelete.as_view(),
+          name='excluir-modalidade'),
+     
+     path('listar/modalidade/',
+          ModalidadeList.as_view(),
+          name='listar-modalidade'),
+
+     path('cadastros/curso/',
+         CursoCreate.as_view(),
+         name='cadastrar-curso'),
+     
+     path('editar/curso/<int:pk>/',
+          CursoUpdate.as_view(),
+          name='editar-curso'),
+     
+     path('excluir/curso/<int:pk>/',
+          CursoDelete.as_view(),
+          name='excluir-curso'),
+     
+     path('listar/curso/',
+          CursoList.as_view(),
+          name='listar-curso'),
 ]

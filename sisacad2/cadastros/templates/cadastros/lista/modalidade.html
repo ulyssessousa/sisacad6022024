@@ -1,0 +1,46 @@
+{% extends 'paginas/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Listar Modalidades
+{% endblock %}
+
+{% block conteudo %}
+<h2>Modalidades cadastradas
+    <a href="{% url 'cadastrar-modalidade' %}"
+    class="btn btn-primary btn-sm float-end">
+        Adicionar modalidade
+    </a>
+</h2>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Modalidade</th>
+            <th>Opções</th>
+        </tr>
+        {% for modalidade in object_list %}
+        <tr>
+            <td>{{ modalidade.nome }}</td>
+            <td>
+                <a href="{% url 'editar-modalidade' modalidade.pk %}" 
+                class="btn btn-warning btn-sm" title="Editar">
+                    Editar
+                </a>
+                <a href="{% url 'excluir-modalidade' modalidade.pk %}"
+                class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">
+                Nenhum campo registro.
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

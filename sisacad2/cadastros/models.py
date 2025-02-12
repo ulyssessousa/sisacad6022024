@@ -16,3 +16,20 @@ class Disciplina(models.Model):
 
     def __str__(self):
         return "{} - CH: {}".format(self.nome, self.cargaHoraria)
+    
+class Modalidade(models.Model):
+    nome = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return "{}".format(self.nome)
+
+class Curso(models.Model):
+    nome = models.CharField(max_length=50)
+    cargaHoraria = models.IntegerField(verbose_name="Carga Horária")
+    presencial = models.BooleanField()
+    departamento = models.ForeignKey(Departamento, on_delete=models.PROTECT)
+    modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{} ({})".format(self.nome, self.modalidade.nome)
+    
