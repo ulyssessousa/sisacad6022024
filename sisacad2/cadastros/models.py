@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import User
 
 # Create your models here.
 class Departamento(models.Model):
@@ -32,4 +33,12 @@ class Curso(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.nome, self.modalidade.nome)
+
+class Inscricao(models.Model):
+    semestre = models.CharField(max_length=10)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+    discipinas = models.ManyToManyField(Disciplina)
+
+    def __str__(self):
+        return "{} ({})".format(self.semestre, self.usuario)
     
