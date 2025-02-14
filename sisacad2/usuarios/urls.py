@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import EncerrarSessaoView, UsuarioCreate
+from .views import EncerrarSessaoView, UsuarioCreate, PerfilUpdate
 
 urlpatterns = [
     path('login/', 
@@ -19,5 +19,9 @@ urlpatterns = [
         name='registrar'
     ),
 
+    path('atualizar-dados/',
+         PerfilUpdate.as_view(),
+         name='atualizar-dados'
+    ),
 
 ]

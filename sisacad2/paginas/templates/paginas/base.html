@@ -56,12 +56,17 @@
                     <li class="nav-item dropdown" id="dropdownLogin">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Usuário: {{ user }}</a>
                             <ul class="dropdown-menu" id="itensLogin">
-                            <li>
-                                <form action="{% url 'logout' %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn dropdown-item">Sair</button>
-                                </form>
-                            </li>
+                                <li>
+                                    <a href="{% url 'atualizar-dados' %}" class="dropdown-item">
+                                        Meus dados</a>           
+                                </li>
+
+                                <li>
+                                    <form action="{% url 'logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn dropdown-item">Sair</button>
+                                    </form>
+                                </li>
                         </ul>
                     </li>
                     {% else %}
