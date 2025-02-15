@@ -6,9 +6,25 @@ Sistema Acadêmico - Página Inicial
 {% endblock %}
 
 {% block conteudo %}
-<h1>Seja bem-vindo(a){% if request.user.is_authenticated %}, {{ user }}, 
-    {% endif %}
-     ao Sistema Acadêmico!</h1>
-<p>Este é o conteúdo principal da página.</p>
+{% if request.user.perfil.nome_completo %}
+<h1>
+    {{ request.user.perfil.nome_completo }}, seja bem-vindo(a) ao Sistema Acadêmico!
+</h1>
+{% elif request.user.is_authenticated %}
+<h1>
+    {{ request.user }}, seja bem-vindo(a) ao Sistema Acadêmico!
+</h1>    
+<p>Você precisa completar o seu cadastro. Acesse <a href="{% url 'atualizar-dados' %}">
+    Meus dados</a>
+ para atualizar os seus dados.
+</p>
+{% else %}
+<h1>
+    Seja bem-vindo(a) ao Sistema Acadêmico!
+</h1>
+<p>Para se cadastrar acesse <a href="{% url 'registrar' %}">Cadastrar-se</a>.</p> 
+
+{% endif %}
+
 {% endblock %}
 
