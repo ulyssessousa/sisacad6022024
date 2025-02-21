@@ -65,4 +65,13 @@ urlpatterns = [
      path('listar/curso/',
           CursoList.as_view(),
           name='listar-curso'),
+     
+     path('cadastros/inscricao/', InscricaoCreate.as_view(), name='cadastrar-inscricao'),
+
+     path('listar/inscricao/', InscricaoList.as_view(), name='listar-inscricao'),
+
+     path('editar/inscricao/<int:pk>', InscricaoUpdate.as_view(), name='editar-inscricao'),
+
+     path('excluir/inscricao/<int:pk>', InscricaoDelete.as_view(), name='excluir-inscricao'),
+
 ]

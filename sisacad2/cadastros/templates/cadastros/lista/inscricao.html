@@ -1,0 +1,49 @@
+{% extends 'paginas/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Listar Inscrições
+{% endblock %}
+
+{% block conteudo %}
+<h2>Inscrições cadastradas
+    <a href="{% url 'cadastrar-inscricao' %}" class="btn btn-primary btn-sm float-end">
+        Adicionar inscricao
+    </a>
+</h2>
+<hr>
+<div class="table-responsive">
+    <strong>Aluno(a): {{ user }}</strong>
+    <table class="table table-striped">
+        <tr>
+            <th>Semestre</th>
+            <th>Disciplinas</th>
+            <th>Opções</th>
+        </tr>
+        {% for object in object_list %}
+        <tr>
+            <td>{{ object.semestre }}</td>
+            <td>
+                {% for disciplina in object.disciplinas.all %}
+                    {{disciplina.nome}} <br>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'editar-inscricao' object.pk %}"
+                class="btn btn-warning btn-sm" title="Editar">
+                    Editar
+                </a>
+                <a href="{% url 'excluir-inscricao' object.pk %}"
+                class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">
+                Não há inscrições registradas para o usuário {{ user }}.
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

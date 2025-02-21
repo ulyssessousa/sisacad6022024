@@ -1,10 +1,10 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Departamento, Disciplina, Modalidade, Curso
+from .models import *
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
-
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 class DepartamentoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
@@ -167,3 +167,63 @@ class CursoList(LoginRequiredMixin, ListView):
     model = Curso
     template_name = 'cadastros/lista/curso.html'
     login_url = reverse_lazy('login')
+
+class InscricaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    group_required = [u"Administrador", u"Aluno"]
+    model = Inscricao
+    fields = ['semestre', 'disciplinas']
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy('listar-inscricao')
+    login_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Realizar Nova Inscrição"
+        context['botao'] = "Realizar Inscrição"
+        return context
+
+class InscricaoList(LoginRequiredMixin, ListView):
+    model = Inscricao
+    template_name = 'cadastros/lista/inscricao.html'
+    login_url = reverse_lazy('login')
+
+    def get_queryset(self):
+        self.object_list = Inscricao.objects.filter(
+                            usuario = self.request.user)
+        return self.object_list
+
+class InscricaoUpdate(LoginRequiredMixin, UpdateView):
+    model = Inscricao
+    fields = ['semestre', 'disciplinas']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-inscricao')
+    login_url = reverse_lazy('login')
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(Inscricao,
+                                        pk=self.kwargs['pk'],
+                                        usuario = self.request.user)
+        return self.object
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Editar dados da inscrição"
+        context['botao'] = "Confirmar Atualizações"
+        return context
+
+class InscricaoDelete(LoginRequiredMixin, DeleteView):
+    model = Inscricao
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-inscricao')
+    login_url = reverse_lazy('login')
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(Inscricao,
+                                        pk=self.kwargs['pk'],
+                                        usuario = self.request.user)
+        return self.object
