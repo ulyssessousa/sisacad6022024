@@ -167,6 +167,7 @@ class CursoList(LoginRequiredMixin, ListView):
     model = Curso
     template_name = 'cadastros/lista/curso.html'
     login_url = reverse_lazy('login')
+    paginate_by = 5
 
 class InscricaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     group_required = [u"Administrador", u"Aluno"]
