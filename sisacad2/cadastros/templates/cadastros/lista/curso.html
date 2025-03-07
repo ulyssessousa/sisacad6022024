@@ -14,6 +14,16 @@ Listar Cursos
 </h2>
 
 <hr>
+
+<form action="?" method="GET">
+    <input type="text" name="nome" id="" value="{{ request.GET.nome }}" class="p-1 border" 
+    autocomplete="off" placeholder="Nome ou parte dele">
+
+    <button type="submit" class="btn btn-success btn-sm">Buscar</button>
+    <a href="{% url 'listar-curso' %}" class="btn btn-light btn-sm">Limpar</a>
+</form>
+
+<hr>
 <div class="table-responsive">
     <table class="table table-striped">
         <tr>

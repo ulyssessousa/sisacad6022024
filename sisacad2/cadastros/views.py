@@ -169,6 +169,14 @@ class CursoList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     paginate_by = 5
 
+    def get_queryset(self):
+        txtNome = self.request.GET.get('nome')
+        if txtNome:
+            cursos = Curso.objects.filter(nome__icontains=txtNome)
+        else:
+            cursos = Curso.objects.all()
+        return cursos
+
 class InscricaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     group_required = [u"Administrador", u"Aluno"]
     model = Inscricao
