@@ -74,4 +74,6 @@ urlpatterns = [
 
      path('excluir/inscricao/<int:pk>', InscricaoDelete.as_view(), name='excluir-inscricao'),
 
+     path('consultar_cursos/', consultar_cursos, name='consultar_cursos'),
+
 ]

@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import *
 from django.urls import reverse_lazy
@@ -236,3 +237,26 @@ class InscricaoDelete(LoginRequiredMixin, DeleteView):
                                         pk=self.kwargs['pk'],
                                         usuario = self.request.user)
         return self.object
+
+def consultar_cursos(request):
+    cursos = Curso.objects.all()
+    departamentos = Departamento.objects.all()
+    modalidades = Modalidade.objects.all()
+
+    nome = request.GET.get('nome')
+    departamento_id = request.GET.get('departamento')
+    modalidade_id = request.GET.get('modalidade')
+
+    if nome:
+        cursos = cursos.filter(nome__icontains=nome)
+    if departamento_id:
+        cursos = cursos.filter(departamento_id=departamento_id)
+    if modalidade_id:
+        cursos = cursos.filter(modalidade_id=modalidade_id)
+
+    context = {
+        'cursos': cursos,
+        'departamentos': departamentos,
+        'modalidades': modalidades,
+    }
+    return render(request, 'cadastros/lista/consultar_cursos.html', context)

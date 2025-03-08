@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consultar Cursos</title>
+</head>
+<body>
+    <h1>Consultar Cursos</h1>
+    <form method="GET" action="{% url 'consultar_cursos' %}">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome"><br><br>
+
+        <label for="departamento">Departamento:</label>
+        <select name="departamento" id="departamento">
+            <option value="">Todos</option>
+            {% for departamento in departamentos %}
+                <option value="{{ departamento.id }}">{{ departamento.nome }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="modalidade">Modalidade:</label>
+        <select name="modalidade" id="modalidade">
+            <option value="">Todas</option>
+            {% for modalidade in modalidades %}
+                <option value="{{ modalidade.id }}">{{ modalidade.nome }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Consultar</button>
+    </form>
+
+    <h2>Resultados</h2>
+    <ul>
+        {% for curso in cursos %}
+            <li>{{ curso.nome }} ({{ curso.modalidade.nome }}) - {{ curso.departamento.nome }}</li>
+        {% empty %}
+            <li>Nenhum curso encontrado.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
