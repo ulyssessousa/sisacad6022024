@@ -11,7 +11,7 @@
 
         <label for="departamento">Departamento:</label>
         <select name="departamento" id="departamento">
-            <option value="">Todos</option>
+            <option value="{{ request.GET.departamento }}">Todos</option>
             {% for departamento in departamentos %}
                 <option value="{{ departamento.id }}">{{ departamento.nome }}</option>
             {% endfor %}
@@ -19,7 +19,7 @@
 
         <label for="modalidade">Modalidade:</label>
         <select name="modalidade" id="modalidade">
-            <option value="">Todas</option>
+            <option value="{{ request.GET.modalidade }}">Todas</option>
             {% for modalidade in modalidades %}
                 <option value="{{ modalidade.id }}">{{ modalidade.nome }}</option>
             {% endfor %}
