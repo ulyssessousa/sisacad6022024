@@ -166,17 +166,30 @@ class CursoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 
 class CursoList(LoginRequiredMixin, ListView):
     model = Curso
-    template_name = 'cadastros/lista/curso.html'
+    template_name = 'cadastros/lista/curso2.html'
     login_url = reverse_lazy('login')
     paginate_by = 5
 
     def get_queryset(self):
-        txtNome = self.request.GET.get('nome')
-        if txtNome:
-            cursos = Curso.objects.filter(nome__icontains=txtNome)
-        else:
-            cursos = Curso.objects.all()
+        cursos = Curso.objects.all()
+        nome = self.request.GET.get('nome')
+        departamento_id = self.request.GET.get('departamentoSelect')
+        modalidade_id = self.request.GET.get('modalidade')
+
+        if nome:
+            cursos = cursos.filter(nome__icontains=nome)
+        if departamento_id:
+            cursos = cursos.filter(departamento_id=departamento_id)
+        if modalidade_id:
+            cursos = cursos.filter(modalidade_id=modalidade_id)
         return cursos
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['selected_option'] = self.request.GET.get('departamentoSelect')
+        context['departamentos'] = Departamento.objects.all()
+        context['modalidades'] = Modalidade.objects.all()
+        return context
 
 class InscricaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     group_required = [u"Administrador", u"Aluno"]
