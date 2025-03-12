@@ -174,7 +174,7 @@ class CursoList(LoginRequiredMixin, ListView):
         cursos = Curso.objects.all()
         nome = self.request.GET.get('nome')
         departamento_id = self.request.GET.get('departamentoSelect')
-        modalidade_id = self.request.GET.get('modalidade')
+        modalidade_id = self.request.GET.get('modalidadeSelect')
 
         if nome:
             cursos = cursos.filter(nome__icontains=nome)
@@ -187,6 +187,7 @@ class CursoList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['selected_option'] = self.request.GET.get('departamentoSelect')
+        context['departamentoSelect'] = self.request.GET.get('departamentoSelect')
         context['departamentos'] = Departamento.objects.all()
         context['modalidades'] = Modalidade.objects.all()
         return context

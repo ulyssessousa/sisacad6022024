@@ -15,13 +15,13 @@ Listar Cursos
 
 <hr>
 
-<form action="?" method="GET">
+<form action="?" method="GET" id="formFiltros">
     <label for="nome">Nome:</label>
     <input type="text" name="nome" id="" value="{{ request.GET.nome }}" class="p-1 border" 
     autocomplete="off" placeholder="Nome ou parte dele"><br><br>
 
     <label for="departamentoSelect">Departamento:</label>
-    <select name="departamentoSelect" id="departamento">
+    <select name="departamentoSelect" id="departamentoSelectID">
         <option value="">Todos</option>
         {% for departamento in departamentos %}
             <option value="{{ departamento.id }}"
@@ -31,8 +31,8 @@ Listar Cursos
         {% endfor %}
     </select><br><br>
 
-    <label for="modalidade">Modalidade:</label>
-    <select name="modalidade" id="modalidade">
+    <label for="modalidadeSelect">Modalidade:</label>
+    <select name="modalidadeSelect" id="modalidadeSelectID">
         <option value="">Todas</option>
         {% for modalidade in modalidades %}
             <option value="{{ modalidade.id }}">{{ modalidade.nome }}</option>
@@ -80,7 +80,7 @@ Listar Cursos
         {% empty %}
         <tr>
             <td colspan="6">
-                Nenhum campo registro.
+                Nenhum curso registrado.
             </td>
         </tr>
         {% endfor %}
@@ -88,13 +88,11 @@ Listar Cursos
     
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-                {% if request.GET.nome %}
-                <li class="page-item"><a class="page-link" href="?page=1&nome={{request.GET.nome}}">&laquo; Primeira</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}">Anterior</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
-                {% endif %}
+                
+                <li class="page-item"><a class="page-link" href="?page=1&nome={{request.GET.nome}}&departamentoSelect={{ request.GET.departamentoSelect }}&modalidadeSelect={{ request.GET.modalidadeSelect }}">&laquo; Primeira</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}&departamentoSelect={{ request.GET.departamentoSelect }}&modalidadeSelect={{ request.GET.modalidadeSelect }}">Anterior</a></li>
+                
+                
             {% endif %}
             
             <li class="page-item">
@@ -102,17 +100,35 @@ Listar Cursos
             </li>
             
             {% if page_obj.has_next %}
-                {% if request.GET.nome %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&nome={{request.GET.nome}}">Próxima</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&nome={{request.GET.nome}}">Última &raquo;</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
-                {% endif %}
+                
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&nome={{request.GET.nome}}&departamentoSelect={{ request.GET.departamentoSelect }}&modalidade={{ request.GET.modalidade }}">Próxima</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&nome={{request.GET.nome}}&departamentoSelect={{ request.GET.departamentoSelect }}&modalidade={{ request.GET.modalidade }}">Última &raquo;</a></li>
+                
             {% endif %}
             
         </ul>
     
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const form = document.getElementById('formFiltros');
+    form.addEventListener('submit', function(event) {
+        //event.preventDefault(); // Evita o recarregamento da página
+        const formData = new FormData(form);
+
+        fetch('/listar/curso/', {
+            method: 'GET',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Atualizar os selects com os dados recebidos
+            document.getElementById('departamentoSelectID').value = data.departamentoSelect;
+            document.getElementById('modalidadeSelectID').value = data.modalidadeSelect;
+        });
+    });
+</script>
 {% endblock %}
